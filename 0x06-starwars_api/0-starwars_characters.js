@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const request = require('request');
 
 // Retrieve the movie ID from command-line arguments
