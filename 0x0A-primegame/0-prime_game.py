@@ -12,7 +12,7 @@ def isWinner(x, nums):
         return True
 
     # Recursive function to simulate the game
-    def play_game(player, numbers):
+    def play_game(numbers, player):
         # Base case: no prime numbers left, current player loses
         if all(not is_prime(num) for num in numbers):
             return "Ben" if player == "Maria" else "Maria"
@@ -22,8 +22,10 @@ def isWinner(x, nums):
             if is_prime(num):
                 # Remove the chosen prime and its multiples
                 new_numbers = [n for n in numbers if n % num != 0]
-                # Recursively call the function with the other player
-                winner = play_game("Ben" if player == "Maria" else "Maria", new_numbers)
+                # Determine the next player
+                next_player = "Ben" if player == "Maria" else "Maria"
+                # Recursively call the function with the updated parameters
+                winner = play_game(new_numbers, next_player)
                 # If the other player loses, the current player wins
                 if winner == player:
                     return player
@@ -31,9 +33,8 @@ def isWinner(x, nums):
         # If no winning move is found, the current player loses
         return "Ben" if player == "Maria" else "Maria"
 
-    # Initialize counters for Maria and Ben's wins
-    maria_wins = 0
-    ben_wins = 0
+    # Initialize wins dictionary for each player
+    wins = {"Maria": 0, "Ben": 0}
 
     # Iterate through each round
     for i in range(x):
@@ -41,17 +42,14 @@ def isWinner(x, nums):
         n = nums[i]
         numbers = list(range(1, n + 1))
         # Simulate the game for the current round
-        winner = play_game("Maria", numbers)
+        winner = play_game(numbers, "Maria")
         # Increment the corresponding player's wins
-        if winner == "Maria":
-            maria_wins += 1
-        elif winner == "Ben":
-            ben_wins += 1
+        wins[winner] += 1
 
     # Determine the winner of the most rounds
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif maria_wins < ben_wins:
-        return "Ben"
+    max_wins = max(wins.values())
+    winners = [player for player, win_count in wins.items() if win_count == max_wins]
+    if len(winners) == 1:
+        return winners[0]
     else:
         return None
