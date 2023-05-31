@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Prime number game"""
 
+
 def isWinner(x, nums):
     """Function to check if a number is prime"""
     def is_prime(n):
@@ -24,7 +25,7 @@ def isWinner(x, nums):
                 new_numbers = [n for n in numbers if n % num != 0]
                 """ Determine the next player"""
                 next_player = "Ben" if player == "Maria" else "Maria"
-                """ Recursively call the function with the updated parameters"""
+                """Recursively call the function with the updated parameters"""
                 winner = play_game(new_numbers, next_player)
                 """ If the other player loses, the current player wins"""
                 if winner == player:
