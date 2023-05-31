@@ -6,7 +6,7 @@ def isWinner(x, nums):
     def is_prime(n):
         if n < 2:
             return False
-        for i in range(2, int(n**0.5) + 1):
+        for i in range(2, int(n ** 0.5) + 1):
             if n % i == 0:
                 return False
         return True
@@ -48,7 +48,9 @@ def isWinner(x, nums):
 
     # Determine the winner of the most rounds
     max_wins = max(wins.values())
-    winners = [player for player, win_count in wins.items() if win_count == max_wins]
+    winners = [
+        player for player, win_count in wins.items() if win_count == max_wins
+    ]
     if len(winners) == 1:
         return winners[0]
     else:
